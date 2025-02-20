@@ -5,10 +5,11 @@ import Link from "next/link";
 import * as React from "react";
 
 type Props = {
-  id: string;
+  params: { id: string };
 };
 
-export default async function Page({ id }: Props) {
+export default async function Page({ params }: Props) {
+  const { id } = params;
   const res = await hono.api.blogs[":id"].$get({
     param: { id },
   });
