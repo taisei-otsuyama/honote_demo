@@ -26,7 +26,7 @@ export default async function Page() {
               <h2 className="lg:text-xl text-lg font-semibold text-gray-800 mb-2">
                 {blog.title}
               </h2>
-              <p className="text-gray-600 lg:text-md text-sm mb-4">
+              <p className="text-gray-600 lg:text-md text-sm mb-4 text-ellipsis overflow-hidden line-clamp-1">
                 {blog.content}
               </p>
               <div className="flex items-center justify-between text-gray-600 text-sm">
@@ -41,7 +41,16 @@ export default async function Page() {
                   <p className="font-medium">{blog.user.name}</p>
                 </div>
                 <p className="text-gray-500">
-                  {new Date(blog.createdAt).toLocaleDateString()}
+                  {new Date(blog.createdAt)
+                    .toLocaleString("ja-JP", {
+                      year: "numeric",
+                      month: "2-digit",
+                      day: "2-digit",
+                      hour: "2-digit",
+                      minute: "2-digit",
+                      hour12: false,
+                    })
+                    .replace(/\//g, "/")}
                 </p>
               </div>
             </Link>

@@ -5,18 +5,10 @@ import { prisma } from "@/app/lib/prisma";
 export const getBlogsHandler: RouteHandler<typeof getBlogsRoute> = async (
   c
 ) => {
-  const blogs: ({
-    user: {
-      name: string | null;
-      image: string | null;
-    };
-  } & {
-    content: string;
-    title: string;
-    id: number;
-    createdAt: Date;
-    userId: string;
-  })[] = await prisma.blog.findMany({
+  const blogs = await prisma.blog.findMany({
+    where: {
+      isDeleted: false,
+    },
     include: {
       user: {
         select: {
@@ -27,5 +19,11 @@ export const getBlogsHandler: RouteHandler<typeof getBlogsRoute> = async (
     },
   });
 
-  return c.json(blogs, 200);
+  return c.json(
+    blogs.map((blog) => ({
+      ...blog,
+      createdAt: blog.createdAt.toISOString(),
+    })),
+    200
+  );
 };
