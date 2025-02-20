@@ -17,7 +17,8 @@ const blogApp = new OpenAPIHono()
   .openapi(getBlogByIdRoute, getBlogByIdHandler)
   .openapi(createBlogRoute, createBlogHandler);
 
-app.route("/blogs", blogApp);
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const route = app.route("/blogs", blogApp);
 
 app.use(
   "/doc/*",
@@ -34,4 +35,5 @@ app
   })
   .get("/doc", swaggerUI({ url: "/api/specification" }));
 
+export type AppType = typeof route;
 export default app;
