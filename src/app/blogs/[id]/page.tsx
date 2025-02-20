@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  const { id } = await params;
+  const { id } = params;
   const res = await hono.api.blogs[":id"].$get({
     param: { id },
   });
