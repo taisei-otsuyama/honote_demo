@@ -4,6 +4,7 @@ import {
   BlogSchema,
   BlogsSchema,
   CreateBlogSchema,
+  UpdateBlogSchema,
 } from "../models/blogSchemas";
 
 export const getBlogsRoute = createRoute({
@@ -67,5 +68,49 @@ export const createBlogRoute = createRoute({
         },
       },
     },
+  },
+});
+
+export const updateBlogByIdRoute = createRoute({
+  path: "/{id}/update",
+  method: "post",
+  description: "ブログを更新",
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: UpdateBlogSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    201: {
+      description: "更新成功",
+      content: {
+        "application/json": {
+          schema: BlogSchema,
+        },
+      },
+    },
+    200: { description: "削除済み" },
+  },
+});
+
+export const deleteBlogByIdRoute = createRoute({
+  path: "/{id}/delete",
+  method: "post",
+  description: "ブログを削除",
+  request: {
+    body: {
+      content: {
+        "application/json": {
+          schema: BlogIdSchema,
+        },
+      },
+    },
+  },
+  responses: {
+    200: { description: "削除成功" },
   },
 });

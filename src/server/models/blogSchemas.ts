@@ -22,6 +22,9 @@ export const BlogSchema = z.object({
   createdAt: z.string().datetime().openapi({
     example: "2025-02-16T12:00:00Z",
   }),
+  isDeleted: z.boolean().openapi({
+    example: false,
+  }),
   userId: z.string().openapi({
     example: "xxxxxxxxxxxxxxxxxxx",
   }),
@@ -43,6 +46,16 @@ export const CreateBlogSchema = z.object({
   }),
 });
 
+export const UpdateBlogSchema = z.object({
+  title: z.string().min(1, { message: "入力されていません。" }).openapi({
+    example: "honteを作った。",
+  }),
+  content: z.string().min(1, { message: "入力されていません。" }).openapi({
+    example: "まだまだhono勉強中だけど、ちょっとわかってきた。",
+  }),
+});
+
 export type User = z.infer<typeof UserSchema>;
 export type Blog = z.infer<typeof BlogSchema>;
 export type CreateBlog = z.infer<typeof CreateBlogSchema>;
+export type UpdateBlog = z.infer<typeof UpdateBlogSchema>;

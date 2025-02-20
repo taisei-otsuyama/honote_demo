@@ -3,19 +3,22 @@ import {
   createBlogRoute,
   getBlogByIdRoute,
   getBlogsRoute,
+  updateBlogByIdRoute,
 } from "@/server/routes/blogRoutes";
 import { getBlogsHandler } from "./controllers/getBlogs";
 import { getBlogByIdHandler } from "./controllers/getBlogById";
 import { createBlogHandler } from "./controllers/createBlog";
 import { swaggerUI } from "@hono/swagger-ui";
 import { basicAuth } from "hono/basic-auth";
+import { updateBlogHandler } from "./controllers/updateBlogById";
 
 export const app = new OpenAPIHono().basePath("/api");
 
 const blogApp = new OpenAPIHono()
   .openapi(getBlogsRoute, getBlogsHandler)
   .openapi(getBlogByIdRoute, getBlogByIdHandler)
-  .openapi(createBlogRoute, createBlogHandler);
+  .openapi(createBlogRoute, createBlogHandler)
+  .openapi(updateBlogByIdRoute, updateBlogHandler);
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const route = app.route("/blogs", blogApp);

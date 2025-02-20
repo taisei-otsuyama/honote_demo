@@ -9,7 +9,7 @@ type Props = {
 };
 
 export default async function Page({ params }: Props) {
-  const { id } = params;
+  const { id } = await params;
   const res = await hono.api.blogs[":id"].$get({
     param: { id },
   });
@@ -20,12 +20,20 @@ export default async function Page({ params }: Props) {
 
   return (
     <div className="max-w-3xl mx-auto px-3 mt-6">
-      <Link
-        href="/"
-        className="inline-block text-blue-500 hover:underline mb-4"
-      >
-        ← ブログ一覧へ戻る
-      </Link>
+      <div className="flex justify-between items-center">
+        <Link
+          href="/"
+          className="inline-block text-blue-500 hover:underline mb-4"
+        >
+          ← ブログ一覧へ戻る
+        </Link>
+        <Link
+          href={`/blogs/${id}/update`}
+          className="inline-block text-blue-500 hover:underline mb-4"
+        >
+          編集
+        </Link>
+      </div>
 
       <div className="bg-white shadow-lg rounded-lg border border-gray-200 p-4">
         <h1 className="lg:text-xl text-lg font-bold text-gray-800 mb-4">
