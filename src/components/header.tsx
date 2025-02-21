@@ -5,7 +5,7 @@ export default async function Header() {
   const session = await auth();
 
   return (
-    <header className="h-[70px] border-b">
+    <header className="h-[70px] border-b fixed top-0 left-0 w-full bg-white z-50">
       <div className="container mx-auto h-full flex items-center justify-between px-3">
         <h1 className="text-[1.5rem] font-bold">🔥 honote</h1>
         {!session && (
