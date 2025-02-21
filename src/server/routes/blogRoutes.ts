@@ -10,7 +10,23 @@ import {
 export const getBlogsRoute = createRoute({
   path: "/",
   method: "get",
-  description: "全部ブログの取得",
+  description: "ブログの一覧を取得（ページネーション対応）",
+  request: {
+    query: z.object({
+      page: z
+        .string()
+        .regex(/^\d+$/)
+        .transform(Number)
+        .optional()
+        .openapi({ example: "1" }),
+      limit: z
+        .string()
+        .regex(/^\d+$/)
+        .transform(Number)
+        .optional()
+        .openapi({ example: "20" }),
+    }),
+  },
   responses: {
     200: {
       description: "取得成功",

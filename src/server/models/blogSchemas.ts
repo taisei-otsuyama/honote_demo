@@ -31,7 +31,11 @@ export const BlogSchema = z.object({
   user: UserSchema,
 });
 
-export const BlogsSchema = z.array(BlogSchema);
+export const BlogsSchema = z.object({
+  blogs: z.array(BlogSchema),
+  hasMore: z.boolean(),
+  total: z.number(),
+});
 
 export const BlogIdSchema = z.object({
   id: z.string().openapi({ example: "1" }),
